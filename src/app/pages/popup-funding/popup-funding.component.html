@@ -1,0 +1,31 @@
+<mat-dialog-content>
+    <p>Seleccione un fondo de inversion</p>
+    <div class="divSelector">
+        <mat-form-field>
+            <mat-select (selectionChange)="onSelectChange()" [formControl]="categoryControl" [(ngModel)]="investmentSelected">
+                @for (group of categoryGroups; track group) {
+                <mat-optgroup [label]="group.code">
+                    @for (investment of group.investmentFunds; track investment) {
+                    <mat-option [value]="investment.id">{{investment.description}}</mat-option>
+                    }
+                </mat-optgroup>
+                }
+
+            </mat-select>
+        </mat-form-field>
+        <section class="example-section">
+            <mat-checkbox #checkbox [(ngModel)]="checked" class="example-margin">Enviar Correo</mat-checkbox>
+            <mat-checkbox class="example-margin" [disabled]="true">Enviar Texto (No Disponible)</mat-checkbox>
+        </section>
+
+        <mat-error>{{checkForError}}</mat-error>
+    </div>
+
+    <div class="flex" align="center">
+
+        <button mat-flat-button [disabled]='checkData' (click)="addNewFunding()" style="margin-left: 5px; margin-top: 10px;">Agregar Fondo</button>
+        <button mat-flat-button color="warn" (click)="closeDialog()" style="margin-left: 20px; margin-top: 10px;">Cancel</button>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+</mat-dialog-actions>

@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: btg-angular-bucket-test2
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      AccessControl: BucketOwnerFullControl
+      LifecycleConfiguration:
+        Rules:
+          -
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 3
+            NoncurrentVersionExpirationInDays: 3
+            Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      Tags:
+        -
+          Key: Description
+          Value: Object Storage
+      VersioningConfiguration:
+        Status: Enabled
+      WebsiteConfiguration:
+        IndexDocument: 'index.html'
+        ErrorDocument: 'error.html'
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: ObjectWriter
+  myStaticWebsiteHostingBucketPolicy:
+      Type: 'AWS::S3::BucketPolicy'
+      Properties:
+        Bucket: !Ref S3Bucket
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref S3Bucket
+                  - /*

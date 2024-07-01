@@ -1,0 +1,49 @@
+<div class="card-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Mis fondos de inversion</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-card-subtitle>Monto restante COP $ {{remainingAmount}}</mat-card-subtitle>
+            <table mat-table [dataSource]="investment">
+
+                <!--- Note that these columns can be defined in any order.
+                     The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="nameFunding">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nameFunding}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element">COP $ {{element.price}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef> Cancelar Fondo </th>
+                    <td mat-cell *matCellDef="let row;">
+                        <button mat-icon-button (click)="deleteFunding(row.id)">
+                      <mat-icon color="warn">delete</mat-icon>
+                    </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+            </table>
+            <div class="flex">
+                <button mat-raised-button color="primary" (click)="addFunding()" style="margin-top: 20px;">Subscribirse al Fondo</button>
+                <button mat-raised-button color="accent" (click)="viewHistory()" style="margin-top: 20px; margin-left: 20px;">Ver Historial</button>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>

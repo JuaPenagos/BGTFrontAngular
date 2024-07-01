@@ -1,0 +1,50 @@
+<div class="card-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Historial de transacciones</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <table mat-table [dataSource]="listHistory">
+
+                <!--- Note that these columns can be defined in any order.
+                   The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="NameFunding">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nameFunding}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Category">
+                    <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="MovementDate">
+                    <th mat-header-cell *matHeaderCellDef> Fecha de transaccion </th>
+                    <td mat-cell *matCellDef="let element"> {{element.movementDate}}</td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="Amount">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="IsLinked">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.islinked ? 'Subscrito' : 'Cancelado'}} </td>
+                </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+            </table>
+            <div class="flex">
+                <button mat-flat-button color="warn" (click)="returnHome()" style="margin-top: 20px;">Regresar</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
