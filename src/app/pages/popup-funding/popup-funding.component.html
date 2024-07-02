@@ -6,7 +6,7 @@
                 @for (group of categoryGroups; track group) {
                 <mat-optgroup [label]="group.code">
                     @for (investment of group.investmentFunds; track investment) {
-                    <mat-option [value]="investment.id">{{investment.description}}</mat-option>
+                    <mat-option [value]="investment.id">{{investment.description}} - COP $ {{investment.minimumAmount}}</mat-option>
                     }
                 </mat-optgroup>
                 }
@@ -23,7 +23,7 @@
 
     <div class="flex" align="center">
 
-        <button mat-flat-button [disabled]='checkData' (click)="addNewFunding()" style="margin-left: 5px; margin-top: 10px;">Agregar Fondo</button>
+        <button mat-flat-button color="primary" [disabled]='checkData' (click)="addNewFunding()" style="margin-left: 5px; margin-top: 10px;">Agregar Fondo</button>
         <button mat-flat-button color="warn" (click)="closeDialog()" style="margin-left: 20px; margin-top: 10px;">Cancel</button>
     </div>
 </mat-dialog-content>
